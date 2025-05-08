@@ -1075,7 +1075,7 @@ document.addEventListener('DOMContentLoaded', () => {
          }
          if (index === 3) { 
              console.log(`[calculateTotalAnimationTime index=3] Returning fixed: 7000ms`);
-             return 7000; 
+             return 6900; 
          }
 
          

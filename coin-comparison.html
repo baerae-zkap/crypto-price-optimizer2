@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>코인 가격 비교</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: #f5f6fa;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden; 
+        }
+
+        .card-area-container {
+            width: 380px; 
+            height: 480px; 
+            position: relative;
+            display: flex; /* For easier alignment of price diff text later */
+            justify-content: center;
+            align-items: center; 
+        }
+
+        .exchange-card {
+            background: rgb(255, 255, 255); 
+            border-radius: 3.33vh; 
+            padding: 1.85vh; 
+            box-shadow: rgba(0, 27, 55, 0.1) 0vh 1.3vh 5.93vh 0vh; 
+            width: 20.65vh; 
+            min-height: 100px; 
+            position: absolute;
+            opacity: 0; 
+            display: flex; 
+            flex-direction: column; 
+            transition: transform 0.4s ease-out, filter 0.4s ease-out, opacity 0.4s ease-out; /* Added transitions */
+        }
+
+        .exchange-card.blurred {
+            filter: blur(4px);
+            opacity: 0.6;
+            transform: scale(0.95); /* Slight shrink */
+            z-index: 0 !important; /* Ensure it's behind highlighted */
+        }
+
+        .exchange-card.highlighted {
+            transform: scale(1.08); /* Slight scale up */
+            box-shadow: rgba(0, 27, 55, 0.2) 0vh 1.5vh 7vh 0vh; /* Enhanced shadow */
+            /* z-index will be handled by original .card1, .card2, .card3 for overlap */
+        }
+
+        .exchange-logo {
+            width: 36px; 
+            height: 36px; 
+            border-radius: 1.67vh; 
+            margin-bottom: 10px;
+            display: flex; /* For centering symbol */
+            justify-content: center; /* For centering symbol */
+            align-items: center; /* For centering symbol */
+            position: relative; /* For pseudo-element positioning */
+            font-size: 18px; /* Symbol font size */
+            font-weight: bold; /* Symbol font weight */
+        }
+
+        /* 아이콘 배경색 (옅은 계열) 및 심볼 색상 (진한 계열) */
+        .logo1 { background-color: #f2c7d1; } /* 옅은 핑크 */
+        .logo1::before { content: 'B'; color: #F7931A; } /* 주황 */
+
+        .logo2 { background-color: #a1c7e7; } /* 옅은 하늘 */
+        .logo2::before { content: 'U'; color: #0D73F8; } /* 파랑 */
+
+        .logo3 { background-color: #dcdcdc; } /* 옅은 회색 */
+        .logo3::before { content: 'C'; color: #0E4D9A; } /* 네이비 */
+
+        .exchange-name-text {
+            font-size: 1.48vh; 
+            color: rgba(3, 24, 50, 0.46); 
+            margin-bottom: 5px;
+            font-weight: 600; 
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+        }
+
+        .price-content {
+            font-size: 1.67vh; 
+            color: rgb(51, 61, 75); 
+            font-weight: 600; 
+            line-height: 1.4; 
+            word-break: keep-all; 
+            margin-top: auto; 
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
+            display: -webkit-box; 
+            -webkit-line-clamp: 3; 
+            -webkit-box-orient: vertical; 
+            overflow: hidden; 
+        }
+
+        .price-content.cheaper {
+            color: #28a745; /* Green for cheaper price */
+        }
+
+        /* Card specific positions and animations */
+        .card1 {
+            top: 20px; 
+            left: 10px;
+            z-index: 1;
+            animation: showCard1 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 0.2s;
+        }
+
+        .card2 {
+            top: 150px; 
+            left: 130px; 
+            z-index: 2;
+            animation: showCard2 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 0.7s;
+        }
+
+        .card3 {
+            top: 270px; 
+            left: 30px; 
+            z-index: 1;
+            animation: showCard3 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards 1.2s;
+        }
+
+        @keyframes showCard1 {
+            from { opacity: 0; transform: translateY(20px) scale(0.8) rotate(-15deg); }
+            to   { opacity: 1; transform: translateY(0) scale(1) rotate(-7deg); }
+        }
+        @keyframes showCard2 {
+            from { opacity: 0; transform: translateY(20px) scale(0.8) rotate(15deg); }
+            to   { opacity: 1; transform: translateY(0) scale(1) rotate(5deg); }
+        }
+        @keyframes showCard3 {
+            from { opacity: 0; transform: translateY(20px) scale(0.8) rotate(-12deg); }
+            to   { opacity: 1; transform: translateY(0) scale(1) rotate(-5deg); }
+        }
+
+        @keyframes priceHighlight {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.03); filter: brightness(1.05); }
+        }
+
+        .price-difference-highlight {
+            position: absolute;
+            bottom: 20px; /* Adjust as needed */
+            left: 50%;
+            transform: translateX(-50%) scale(0.5);
+            background-color: rgba(255, 100, 100, 0.9);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 12px;
+            font-size: 1.8vh; /* Relative to viewport height */
+            font-weight: bold;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-out, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 100; /* Ensure it's on top */
+            white-space: nowrap;
+        }
+
+        .price-difference-highlight.show {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+        }
+    </style>
+</head>
+<body>
+    <div class="card-area-container">
+        <div class="exchange-card card1" data-id="B">
+            <div class="exchange-logo logo1"></div>
+            <div class="exchange-name-text">B 거래소</div>
+            <div class="price-content price-a"></div>
+        </div>
+        <div class="exchange-card card2" data-id="U">
+            <div class="exchange-logo logo2"></div>
+            <div class="exchange-name-text">U 거래소</div>
+            <div class="price-content price-b"></div>
+        </div>
+        <div class="exchange-card card3" data-id="C">
+            <div class="exchange-logo logo3"></div>
+            <div class="exchange-name-text">C 거래소</div>
+            <div class="price-content price-c"></div>
+        </div>
+        <div class="price-difference-highlight"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('애니메이션 준비 완료');
+
+            const cards = {
+                B: { element: document.querySelector('.card1'), priceEl: document.querySelector('.price-a'), initialPrice: 23500000, newPrice: 23600000 },
+                U: { element: document.querySelector('.card2'), priceEl: document.querySelector('.price-b'), initialPrice: 23150000, newPrice: 23050000 }, // U 거래소 가격을 더 낮게 조정 (최저가)
+                C: { element: document.querySelector('.card3'), priceEl: document.querySelector('.price-c'), initialPrice: 23300000, newPrice: 23750000 }  // C 거래소 가격을 더 높게 조정 (최고가)
+            };
+            const priceDiffHighlightEl = document.querySelector('.price-difference-highlight');
+
+            function formatCurrency(amount) {
+                if (amount >= 10000) { 
+                    return (amount / 10000).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 }) + '만 원';
+                } else {
+                    return amount.toLocaleString() + ' 원';
+                }
+            }
+
+            // 초기 가격 설정
+            for (const key in cards) {
+                cards[key].priceEl.textContent = formatCurrency(cards[key].initialPrice);
+                cards[key].currentPrice = cards[key].initialPrice; // 현재 가격 추적용
+            }
+
+            // 가격 업데이트 및 비교 애니메이션 시작
+            setTimeout(() => {
+                // 하이라이트 애니메이션만 실행
+                for (const key in cards) {
+                    // 하이라이트 애니메이션
+                    cards[key].priceEl.style.animation = 'none'; 
+                    void cards[key].priceEl.offsetWidth; 
+                    cards[key].priceEl.style.animation = 'priceHighlight 0.7s ease-in-out';
+                }
+
+                // 비교 애니메이션 (가격 업데이트 후 약 5초 뒤)
+                setTimeout(() => {
+                    const sortedPrices = Object.values(cards).sort((a, b) => a.currentPrice - b.currentPrice);
+                    const cheapest = sortedPrices[0];
+                    const mostExpensive = sortedPrices[sortedPrices.length - 1];
+                    const middle = sortedPrices.slice(1, -1);
+
+                    Object.values(cards).forEach(cardObj => {
+                        cardObj.element.classList.remove('highlighted', 'blurred');
+                    });
+
+                    cheapest.element.classList.add('highlighted');
+                    mostExpensive.element.classList.add('highlighted');
+                    
+                    // Ensure correct z-index for highlighted cards to overlap middle one
+                    // Card U (initial card2) has z-index 2. If it's cheapest/most expensive, it's fine.
+                    // If B or C are cheapest/most expensive, they need higher z-index than the middle one if it's U.
+                    if (cheapest.element !== cards.U.element && mostExpensive.element !== cards.U.element && middle.some(m => m.element === cards.U.element)) {
+                        // This case can be complex if U is middle, and B and C are highlighted
+                        // For simplicity, we'll ensure highlighted are above blurred.
+                        // Setting z-index directly might be needed if complex overlaps are desired.
+                    }
+                    // For a more robust z-index handling, you might iterate and set z-index explicitly.
+                    // Current .highlighted and .blurred does not explicitly set z-index, relies on initial HTML z-index
+                    // Let's ensure highlighted cards appear on top of blurred ones
+                    cheapest.element.style.zIndex = '3';
+                    mostExpensive.element.style.zIndex = '3';
+
+
+                    middle.forEach(cardObj => {
+                        cardObj.element.classList.add('blurred');
+                        cardObj.element.style.zIndex = '0'; 
+                    });
+
+                    const diff = mostExpensive.currentPrice - cheapest.currentPrice;
+                    priceDiffHighlightEl.textContent = `최대 ${formatCurrency(diff)} 더 비싸요!`;
+                    priceDiffHighlightEl.classList.add('show');
+
+                }, 5000); // Changed delay to 5000ms (5 seconds)
+
+            }, 2800); // 초기 애니메이션 후 지연
+        });
+    </script>
+</body>
+</html> 

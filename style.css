@@ -1183,13 +1183,13 @@ body {
 /* 슬라이드 1, 2번 (인덱스 0, 1) 비디오에 적용 */
 .visual-content-container.no-frame .visual-video.video-slide-0,
 .visual-content-container.no-frame .visual-video.video-slide-1 {
-    object-position: center 130% !important;
+    object-position: center 100% !important;
 }
 
 /* 슬라이드 3, 4번 (인덱스 2, 3) 비디오에 적용 */
 .visual-content-container.no-frame .visual-video.video-slide-2,
 .visual-content-container.no-frame .visual-video.video-slide-3 {
-    object-position: center 10% !important;
+    object-position: center -20% !important;
 }
 
 .bottom-text-container {
