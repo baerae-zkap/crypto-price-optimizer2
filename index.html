@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZKAP - 스토리</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="story-container">
+
+        <div class="progress-container" id="progress-container">
+
+        </div>
+        
+
+        <div class="nav-buttons">
+            <button class="nav-btn prev-btn" id="prev-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <button class="nav-btn next-btn" id="next-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 6L15 12L9 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        
+
+        <div class="top-right-buttons">
+            <button class="mute-btn icon-btn" id="mute-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="sound-on">
+                    <path d="m11.3848 18.3403c-.4029 0-.7251-.1611-1.1133-.5273l-3.02492-2.8491c-.04394-.0367-.09521-.0586-.16113-.0586h-2.05811c-1.12793 0-1.74316-.6299-1.74316-1.8238v-2.7099c0-1.19387.61523-1.83107 1.74316-1.83107h2.05811c.06592 0 .11719-.02198.16113-.0586l3.02492-2.82714c.4248-.39551.7104-.55665 1.1059-.55665.6006 0 1.0401.46875 1.0401 1.06202v11.14744c0 .5933-.4395 1.0327-1.0327 1.0327zm6.7236-1.289c-.4028-.2417-.4468-.7398-.1685-1.1792.7544-1.1499 1.2012-2.6221 1.2012-4.1602s-.4321-3.01756-1.2012-4.16747c-.2856-.43945-.2343-.93017.1685-1.17187.3735-.23438.8276-.14649 1.084.23437.9668 1.37696 1.5161 3.21534 1.5161 5.10497 0 1.8897-.5566 3.7134-1.5161 5.105-.2564.3735-.7105.4614-1.084.2344zm-3.0835-1.9922c-.3955-.2564-.4761-.7324-.1611-1.2305.3882-.5713.6079-1.3257.6079-2.1167s-.2124-1.5527-.6079-2.12401c-.3223-.49072-.2344-.9668.1611-1.22314.3516-.22705.8057-.14649 1.0547.19775.6006.82764.9668 1.9629.9668 3.1494s-.3662 2.3218-.9668 3.1494c-.249.3443-.7031.4248-1.0547.1978z" fill="currentColor"/>
+                </svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="sound-off" style="display: none;">
+                    <path d="m18.2842 19.0068-13.01516-13.00778c-.22705-.22705-.22705-.61523 0-.84228.23438-.23438.61524-.23438.84961 0l13.01515 13.00046c.2344.2344.227.6153 0 .8496-.2271.2344-.6152.2271-.8496 0zm-2.5781-5.5883-5.1563-5.14897h.1465c.0366 0 .0732-.02197.0952-.04394l2.7686-2.5708c.4248-.38819.7104-.55665 1.1059-.55665.6006 0 1.0401.46875 1.0401 1.06202zm-7.41215 1.4868c-1.13526 0-1.7212-.6006-1.7212-1.7945v-2.7685c0-.5713.13916-1.01808.41016-1.30373l8.64259 8.63523c-.1611.4395-.5054.6665-.9522.6665-.4028 0-.7251-.1611-1.1132-.5273l-3.0616-2.8491c-.0439-.0367-.0952-.0586-.1538-.0586z" fill="currentColor"/>
+                </svg>
+            </button>
+
+            <button class="share-btn icon-btn" id="share-btn">
+                <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-rule="evenodd" fill="currentColor" fill-rule="evenodd">
+                        <path d="m18.4208 14.5142c-.4553 0-.825.3691-.825.8251v1.2822c0 .537-.4373.975-.975.975h-9.24226c-.53775 0-.975-.438-.975-.975v-9.24225c0-.53775.43725-.975.975-.975h1.28c.456 0 .825-.369.825-.825s-.369-.825-.825-.825h-1.28c-1.44675 0-2.625 1.1775-2.625 2.625v9.24225c0 1.4475 1.17825 2.625 2.625 2.625h9.24226c1.4475 0 2.625-1.1775 2.625-2.625v-1.2822c0-.456-.369-.8251-.825-.8251z"></path>
+                        <path d="m19.0042 4.98075c-.1725-.168-.3997-.23925-.6232-.2265h-5.5103c-.456 0-.825.369-.825.825s.369.825.825.825h3.558l-4.869 4.86895c-.1552.1545-.2422.3645-.2415.5835 0 .4553.3698.825.825.825h.0008c.219 0 .4282-.0862.5827-.2415l4.869-4.8697v3.5587c0 .456.369.825.825.825s.825-.369.825-.825v-5.5282c.0083-.22425-.0682-.45075-.2422-.62025z"></path>
+                    </g>
+                </svg>
+            </button>
+
+            <div class="mute-tooltip" id="mute-tooltip" style="display: none;">
+                소리를 켤 수 있어요!
+            </div>
+        </div>
+        
+        <div class="story-content" id="story-content">
+        </div>
+
+        <div id="bottom-nav-controls" class="bottom-nav-controls">
+            <button id="prev-control-btn" class="control-btn">
+                <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m17.4858 11.7119c0 .542-.1904.9741-.6591 1.4282l-5.2662 5.1636c-.3222.3223-.7031.4688-1.1499.4688-.91548 0-1.68453-.7618-1.68453-1.6626 0-.4615.19776-.8936.56397-1.2452l4.32126-4.1601-4.32126-4.14552c-.37354-.35888-.56397-.78369-.56397-1.23779 0-.9082.76905-1.6626 1.68453-1.6626.4615 0 .8277.14649 1.1499.46875l5.2662 5.15626c.4614.4541.6445.8789.6591 1.4282z" fill="currentColor" transform="rotate(180 12 12)"></path></svg>
+            </button>
+            <button id="play-pause-control-btn" class="control-btn">
+                <svg class="play-icon" fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m6.27246 17.2856v-11.14742c0-1.1499.73242-1.75048 1.61133-1.75048.35889 0 .75439.09521 1.1206.31494l9.19191 5.34666c.7324.4321 1.1938.9155 1.1938 1.6626s-.4614 1.2305-1.1938 1.6553l-9.19191 5.354c-.36621.2124-.76171.3149-1.1206.3149-.87891 0-1.61133-.6079-1.61133-1.7505z" fill="currentColor"></path></svg>
+                <svg class="pause-icon" fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" style="display: none;"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 6C8 5.44772 8.44772 5 9 5H10C10.5523 5 11 5.44772 11 6V18C11 18.5523 10.5523 19 10 19H9C8.44772 19 8 18.5523 8 18V6ZM13 6C13 5.44772 13.4477 5 14 5H15C15.5523 5 16 5.44772 16 6V18C16 18.5523 15.5523 19 15 19H14C13.4477 19 13 18.5523 13 18V6Z" fill="currentColor"></path></svg>
+            </button>
+            <button id="next-control-btn" class="control-btn">
+                 <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="m17.4858 11.7119c0 .542-.1904.9741-.6591 1.4282l-5.2662 5.1636c-.3222.3223-.7031.4688-1.1499.4688-.91548 0-1.68453-.7618-1.68453-1.6626 0-.4615.19776-.8936.56397-1.2452l4.32126-4.1601-4.32126-4.14552c-.37354-.35888-.56397-.78369-.56397-1.23779 0-.9082.76905-1.6626 1.68453-1.6626.4615 0 .8277.14649 1.1499.46875l5.2662 5.15626c.4614.4541.6445.8789.6591 1.4282z" fill="currentColor"></path></svg>
+            </button>
+        </div>
+    </div>
+
+
+    <button type="button" aria-label="재생/일시정지" class="cover-play-button" id="cover-play-button" style="display: none;">
+
+        <div class="icon-wrapper pause-icon-wrapper">
+            <img src="https://static.toss.im/ix/simplicity25-export/simplicity-icon-pause.png" alt="일시정지" class="cover-icon-img">
+        </div>
+        <div class="icon-wrapper play-icon-wrapper">
+            <img src="https://static.toss.im/ix/simplicity25-export/simplicity-icon-play.png" alt="재생" class="cover-icon-img">
+        </div>
+
+    </button>
+
+
+    <audio id="slide0-audio" src="v1.mp3" preload="auto"></audio>
+
+
+    <div class="modal-overlay" id="email-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">ZKAP 사전예약 신청</h2>
+                <p class="modal-subtitle">이메일을 남겨주시면 출시 소식과 함께 특별 혜택을 보내드립니다.</p>
+            </div>
+            <form class="modal-form" id="email-form">
+                <div class="form-group">
+                    <label for="email" class="form-label">이메일</label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="your@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="form-label">이름 (선택)</label>
+                    <input type="text" id="name" name="name" class="form-input" placeholder="홍길동">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="modal-close" id="modal-close">닫기</button>
+                    <button type="submit" class="modal-submit">신청하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
