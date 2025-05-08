@@ -1174,12 +1174,22 @@ body {
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
-    object-position: center 10% !important;
     border: none !important;
-    max-width: 768px;
     display: block !important;
     margin-left: auto !important;
     margin-right: auto !important;
+}
+
+/* 슬라이드 1, 2번 (인덱스 0, 1) 비디오에 적용 */
+.visual-content-container.no-frame .visual-video.video-slide-0,
+.visual-content-container.no-frame .visual-video.video-slide-1 {
+    object-position: center 130% !important;
+}
+
+/* 슬라이드 3, 4번 (인덱스 2, 3) 비디오에 적용 */
+.visual-content-container.no-frame .visual-video.video-slide-2,
+.visual-content-container.no-frame .visual-video.video-slide-3 {
+    object-position: center 10% !important;
 }
 
 .bottom-text-container {
@@ -1232,10 +1242,6 @@ body {
         margin-right: 0;
         margin-bottom: 8px;
         text-align: center;
-    }
-
-    .visual-content-container.no-frame .visual-video {
-        object-position: center 130% !important;
     }
 }
 

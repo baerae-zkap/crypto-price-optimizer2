@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 visual: { 
                     type: 'video',
-                    src: '1.mov',
+                    src: '1pc.mov',
                     frame: false 
                 },
                 textLines: [
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 visual: { 
                     type: 'video',
-                    src: '2.mov',
+                    src: '2pc.mov',
                     frame: false 
                 },
                 textLines: [
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 visual: { 
                     type: 'video',
-                    src: '3.mov',
+                    src: '3pc.mov',
                     frame: false 
                 },
                 textLines: [ 
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 visual: { 
                     type: 'video',
-                    src: '4.mov',
+                    src: '4pc.mov',
                     frame: false 
                 },
                 textLines: [ 
@@ -408,16 +408,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 visualContainer.appendChild(icon);
             } else if (slideData.visual.type === 'video') { 
-                const video = document.createElement('video');
-                video.src = slideData.visual.src;
-                video.autoplay = true;
-                video.loop = true;
-                video.muted = true;
-                video.playsInline = true; 
-                video.preload = 'auto'; 
-                video.classList.add('visual-video');
-                video.style.width = slideData.visual.width || 'auto'; 
-                visualContainer.appendChild(video);
+                const videoElement = document.createElement('video');
+                videoElement.classList.add('visual-video');
+                videoElement.src = slideData.visual.src;
+                videoElement.loop = slideData.visual.loop !== undefined ? slideData.visual.loop : true;
+                videoElement.muted = slideData.visual.muted !== undefined ? slideData.visual.muted : true;
+                videoElement.setAttribute('playsinline', '');
+                videoElement.preload = "auto";
+
+                videoElement.classList.add(`video-slide-${index}`);
+
+                visualContainer.appendChild(videoElement);
             }
 
             content.appendChild(visualContainer); 
